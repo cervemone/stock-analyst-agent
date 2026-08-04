@@ -10,6 +10,7 @@
 [![Python](https://img.shields.io/badge/Seller-Python%203.12-3776AB?logo=python)](stockanalyst/)
 [![TypeScript](https://img.shields.io/badge/Buyer-TypeScript-3178C6?logo=typescript)](buyer-client/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE)
+[![Upstream](https://img.shields.io/badge/Upstream-bnb%2Fchain%2Fstockanalyst--agent--demo-blue)](https://github.com/bnb-chain/stockanalyst-agent-demo)
 
 **The agent that reads your portfolio and sells you a thesis — paid via x402 / ERC-8183, with native support for tokenized equities on Robinhood Chain, BSC and any EVM.**
 
@@ -218,6 +219,7 @@ cd buyer-client && npx tsc --noEmit
 
 ## Related projects
 
+- [bnb-chain/stockanalyst-agent-demo](https://github.com/bnb-chain/stockanalyst-agent-demo) — upstream demo this project forks (we contribute back: [PR #9](https://github.com/bnb-chain/stockanalyst-agent-demo/pull/9))
 - `stock-token-index` — on-chain registry of tokenized equities
 - `rh-stock-token-sdk` — SDK for Robinhood Chain stock tokens
 - `virtuals-stock-agents` — more Virtuals analyst personas
