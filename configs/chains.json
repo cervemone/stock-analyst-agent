@@ -1,10 +1,10 @@
 {
   "chains": {
-    "robinhood": {
-      "name": "Robinhood Chain",
-      "chainId": 4663,
-      "rpc": "https://rpc.robinhood.com",
-      "explorer": "https://explorer.robinhood.com",
+    "bsc": {
+      "name": "BNB Chain",
+      "chainId": 56,
+      "rpc": "https://rpc.bsc.com",
+      "explorer": "https://explorer.bsc.com",
       "native": "ETH",
       "stockTokenRegistry": "0x0000000000000000000000000000000000000000",
       "type": "evm-l2",

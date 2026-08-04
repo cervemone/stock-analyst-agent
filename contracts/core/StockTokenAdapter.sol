@@ -3,7 +3,7 @@ pragma solidity ^0.8.24;
 
 /// @title StockTokenAdapter
 /// @notice Unified interface for tokenized-equity interactions across
-///         Robinhood Chain, BSC and generic EVM networks. Stock tokens
+///         BNB Chain, BSC and generic EVM networks. Stock tokens
 ///         differ from plain ERC-20s: they carry transfer restrictions,
 ///         issuer metadata and settlement provenance that a research
 ///         agent must be able to read and reason about.

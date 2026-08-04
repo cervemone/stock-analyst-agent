@@ -1,9 +1,9 @@
 """
-Robinhood Chain price feed for the stock-analyst-agent.
+BSC price feed for the stock-analyst-agent.
 
-Polls the RH chain RPC for stock-token prices (native and via the
+Polls the BSC RPC for stock-token prices (native and via the
 registry), maintains a rolling candle buffer, and exposes the same
-price interface the BSC/EVM feeds use — so the report pipeline never
+price interface the EVM feeds use — so the report pipeline never
 cares which chain a ticker lives on.
 
 The feed is intentionally dependency-light: only `eth-rpc` style JSON
@@ -31,11 +31,11 @@ class Candle:
 
 
 @dataclass
-class RHPriceFeed:
-    """Minimal stock-token price feed for Robinhood Chain."""
+class BSCPriceFeed:
+    """Minimal stock-token price feed for BNB Smart Chain."""
 
-    rpc_url: str = "https://rpc.robinhood.com"
-    chain_id: int = 4663
+    rpc_url: str = "https://bsc-dataseed.binance.org"
+    chain_id: int = 56
     poll_interval: float = 15.0
     candle_window: int = 200
     _candles: Dict[str, List[Candle]] = field(default_factory=dict)
@@ -55,7 +55,7 @@ class RHPriceFeed:
         Returns (price, block_ts) for a stock token.
 
         Two lookup paths:
-          1. Native on-chain quote via `priceOf(address)` on the RH
+          1. Native on-chain quote via `priceOf(address)` on the BSC
              stock-token registry (preferred).
           2. Fallback: TWAP over the last N RPC `eth_call` samples.
 
@@ -100,7 +100,7 @@ class RHPriceFeed:
 
 
 def main() -> None:  # quick smoke test against a live RPC
-    feed = RHPriceFeed()
+    feed = BSCPriceFeed()
     print("chain_id:", feed.chain_id)
     print("rpc_url:", feed.rpc_url)
     print("candle_window:", feed.candle_window)

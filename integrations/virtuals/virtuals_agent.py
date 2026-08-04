@@ -2,7 +2,7 @@
 Virtuals Protocol integration for the stock-analyst-agent.
 
 Deploys an analyst "persona" agent on Virtuals Protocol that can:
-  1. Read on-chain stock-token prices (Robinhood Chain / BSC / EVM)
+  1. Read on-chain stock-token prices (BNB Chain / BSC / EVM)
   2. Answer tokenized-equity questions with the same research stack
      used by the x402 seller (indicators, sentiment, thesis).
   3. Post structured verdicts back on-chain via the agent's channel.
@@ -39,7 +39,7 @@ class VirtualsPersona:
     temperature: float = 0.2
     max_tokens: int = 4096
     tickers: List[str] = field(default_factory=list)
-    chains: List[str] = field(default_factory=lambda: ["robinhood", "bsc", "evm"])
+    chains: List[str] = field(default_factory=lambda: ["bsc", "bsc", "evm"])
     system_prompt: str = ""
     tool_bindings: Dict[str, bool] = field(default_factory=dict)
 
@@ -130,7 +130,7 @@ def _available_tools(persona: VirtualsPersona) -> List[str]:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Deploy Virtuals stock-analyst persona")
     parser.add_argument("--persona", choices=list(PERSONA_PRESETS), default="onchain-analyst-v1")
-    parser.add_argument("--chain", default="robinhood", help="primary chain for price feeds")
+    parser.add_argument("--chain", default="bsc", help="primary chain for price feeds")
     parser.add_argument("--tickers", default="", help="comma-separated ticker override")
     parser.add_argument("--dry-run", action="store_true", default=True)
     parser.add_argument("--deploy", action="store_true", help="actually deploy (needs API key)")

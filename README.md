@@ -4,7 +4,7 @@
 [![x402](https://img.shields.io/badge/Payment-x402%20v2-orange)](buyer-client/src/x402-async.ts)
 [![B402](https://img.shields.io/badge/Settlement-B402%20HMAC--SHA512-green)](gateway/x402_lambda/)
 [![UOMP](https://img.shields.io/badge/Context-UOMP-purple)](https://github.com/0xaicrypto/uomp-core)
-[![Robinhood Chain](https://img.shields.io/badge/Chain-Robinhood%20(4663)-lightgrey)](configs/chains.json)
+[![BNB Chain](https://img.shields.io/badge/Chain-BNB Chain%20(56)-lightgrey)](configs/chains.json)
 [![BSC](https://img.shields.io/badge/Chain-BSC-yellow)](configs/chains.json)
 [![Virtuals](https://img.shields.io/badge/Agent%20Deploy-Virtuals%20Protocol-8A2BE2)](integrations/virtuals/)
 [![Python](https://img.shields.io/badge/Seller-Python%203.12-3776AB?logo=python)](stockanalyst/)
@@ -12,19 +12,19 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE)
 [![Upstream](https://img.shields.io/badge/Upstream-bnb%2Fchain%2Fstockanalyst--agent--demo-blue)](https://github.com/bnb-chain/stockanalyst-agent-demo)
 
-**The agent that reads your portfolio and sells you a thesis — paid via x402 / ERC-8183, with native support for tokenized equities on Robinhood Chain, BSC and any EVM.**
+**The agent that reads your portfolio and sells you a thesis — paid via x402 / ERC-8183, with native support for tokenized equities on BNB Chain, BSC and any EVM.**
 
 An end-to-end, production-shaped demo of a **personalized AI stock analyst** for the tokenized-equity era. It aggregates five independent data sources, computes ten technical indicators, writes a structured bull/bear thesis with target price, and settles payment three ways — free identity-proof quotes, x402 async jobs, and fully trustless ERC-8183 on-chain escrow.
 
-This is a **hard fork of [bnb-chain/stockanalyst-agent-demo](https://github.com/bnb-chain/stockanalyst-agent-demo)** with a chain-agnostic data layer, a Robinhood Chain price feed, Virtuals Protocol persona deployment, and a stock-token metadata adapter.
+This is a **hard fork of [bnb-chain/stockanalyst-agent-demo](https://github.com/bnb-chain/stockanalyst-agent-demo)** with a chain-agnostic data layer, a BNB Chain price feed, Virtuals Protocol persona deployment, and a stock-token metadata adapter.
 
 ---
 
 ## Why this exists
 
-Tokenized equities (TSLA/B, NVDA/B, GOOGL, SKHYB, SNDKB and friends) trade on BSC today and are moving to dedicated L2s like Robinhood Chain. Every chain re-implements the same primitives — price feeds, issuer metadata, transfer restrictions, settlement provenance — and every analyst agent re-implements the same research stack. This repo is the reference implementation that ties both sides together:
+Tokenized equities (TSLA/B, NVDA/B, GOOGL, SKHYB, SNDKB and friends) trade on BSC today and are moving to dedicated L2s like BNB Chain. Every chain re-implements the same primitives — price feeds, issuer metadata, transfer restrictions, settlement provenance — and every analyst agent re-implements the same research stack. This repo is the reference implementation that ties both sides together:
 
-- **Chain layer**: one adapter (`StockTokenAdapter`) that normalizes stock tokens across RH chain, BSC and EVM.
+- **Chain layer**: one adapter (`StockTokenAdapter`) that normalizes stock tokens across BSC, BSC and EVM.
 - **Payment layer**: the x402 + ERC-8183 + B402 stack that lets an agent get paid for analysis without KYC, subscriptions or a credit card.
 - **Agent layer**: a seller runtime that can be deployed as a plain service **or** as a Virtuals Protocol persona.
 
@@ -34,7 +34,7 @@ Tokenized equities (TSLA/B, NVDA/B, GOOGL, SKHYB, SNDKB and friends) trade on BS
 - 📈 **10 technical indicators** — RSI, MACD, Bollinger, MA50/200 golden/death cross, ADX, OBV, ATR, VaR 95%.
 - 💳 **Three payment tiers** — free 0-U quotes, 1-U x402 async jobs, 1-U ERC-8183 on-chain escrow.
 - 🔐 **B402 authenticated settlement** — HMAC-SHA512 signed callbacks so nobody can forge a paid result.
-- ⛓️ **Chain-agnostic** — Robinhood Chain (4663), BSC (56), Base (8453), any EVM; configured in `configs/chains.json`.
+- ⛓️ **Chain-agnostic** — BNB Chain (56), BSC (56), Base (8453), any EVM; configured in `configs/chains.json`.
 - 🤖 **Virtuals-ready** — deploy analyst personas on Virtuals Protocol from a manifest.
 - 🔒 **UOMP context** — reads your portfolio and cost basis from a local privacy guard, never a cloud API.
 - ☁️ **S3 storage** — private report delivery via presigned URLs.
@@ -100,7 +100,7 @@ Tokenized equities (TSLA/B, NVDA/B, GOOGL, SKHYB, SNDKB and friends) trade on BS
 
 | Chain | Chain ID | Native | Stock tokens | Feed |
 |---|---|---|---|---|
-| Robinhood Chain | 4663 | ETH | registry-based | `integrations/robinhood/price_feed.py` |
+| BNB Chain | 56 | ETH | registry-based | `integrations/bsc/price_feed.py` |
 | BSC | 56 | BNB | TSLAB, NVDAB, MSFTo, GOOGL, … | BSC RPC |
 | Base | 8453 | ETH | any ERC-20 | EVM RPC |
 | Any EVM | — | — | via `StockTokenAdapter` | EVM RPC |
@@ -178,7 +178,7 @@ gateway/                 # cloud gateway
 ├── x402_lambda/         # serverless x402 handler (Python)
 contracts/               # Solidity: StockTokenAdapter + escrow interfaces
 integrations/            # chain & protocol integrations
-├── robinhood/           # RH chain price feed
+├── bsc/           # BSC price feed
 ├── virtuals/            # Virtuals persona deployment
 ├── binance-pay/         # facilitator adapter
 ├── s3/                  # private report storage
@@ -211,7 +211,7 @@ cd buyer-client && npx tsc --noEmit
 - [x] ERC-8183 on-chain escrow flow
 - [x] B402 HMAC-SHA512 authenticated settlement
 - [x] S3 private report storage
-- [x] Robinhood Chain price feed
+- [x] BNB Chain price feed
 - [x] Virtuals persona deployment
 - [ ] Multi-LLM routing (kimi-k2.6 ↔ deepseek ↔ claude)
 - [ ] Options-chain aware thesis generation
@@ -221,7 +221,7 @@ cd buyer-client && npx tsc --noEmit
 
 - [bnb-chain/stockanalyst-agent-demo](https://github.com/bnb-chain/stockanalyst-agent-demo) — upstream demo this project forks (we contribute back: [PR #9](https://github.com/bnb-chain/stockanalyst-agent-demo/pull/9))
 - `stock-token-index` — on-chain registry of tokenized equities
-- `rh-stock-token-sdk` — SDK for Robinhood Chain stock tokens
+- `rh-stock-token-sdk` — SDK for BNB Chain stock tokens
 - `virtuals-stock-agents` — more Virtuals analyst personas
 - `stock-token-data-pipeline` — the data layer this agent consumes
 - `x402-payment-gateway` — self-hosted x402 gateway
@@ -229,8 +229,8 @@ cd buyer-client && npx tsc --noEmit
 ## License
 
 Apache-2.0. The original demo is (c) BNB Chain; this fork adds the
-chain-agnostic layer, RH chain feed and Virtuals integration.
+chain-agnostic layer, BSC feed and Virtuals integration.
 
 ---
 
-_Last updated 2026-08-03 — RH chain feed + Virtuals personas GA._
+_Last updated 2026-08-03 — BSC feed + Virtuals personas GA._
